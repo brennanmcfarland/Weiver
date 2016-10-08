@@ -12,9 +12,9 @@ import java.io.IOException;
  * @author joshreichman
  */
 public interface ParseWebPage {
-    void websiteTitle()throws IOException;
-    void findArticleBody()throws IOException;
+    String websiteTitle()throws IOException;
+    String findArticleBody()throws IOException;
     //void findSubtitle()throws IOException;
-    void findPros()throws IOException;
-    void findCons()throws IOException;
+    String findPros()throws IOException;
+    String findCons()throws IOException;
 }
