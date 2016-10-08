@@ -22,6 +22,4 @@ public abstract class WebPage {
     /** The URL of the review. */
     private String URL;
     
-    /* Another test, because this is weird.*/
-
 }
