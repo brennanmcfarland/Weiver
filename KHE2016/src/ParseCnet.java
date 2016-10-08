@@ -30,9 +30,11 @@ public class ParseCnet implements ParseWebPage {
     }
 
     
-    public void findArticleBody() throws IOException {
+    public String findArticleBody(Document d) throws IOException {
         // TODO Auto-generated method stub
-        // Not Complete!
+        String title = d.select("div.editorReview").text();
+        title = title.replaceAll("\\<.*?>", "");
+        return("Summery: " +  title); 
     }
 
 
@@ -76,7 +78,8 @@ public class ParseCnet implements ParseWebPage {
            System.exit(0);
         }
         System.out.println("Success! Valid Product!");
-        System.out.println(parseCnet.websiteTitle(d) + "\n");
+        System.out.println(parseCnet.websiteTitle(d) + "\n\n");
+        System.out.println(parseCnet.findArticleBody(d) + "\n");
         System.out.println(parseCnet.findPros(d) + "\n");
         System.out.println(parseCnet.findCons(d) + "\n");
 
@@ -84,17 +87,22 @@ public class ParseCnet implements ParseWebPage {
     }
 
     @Override
-    public void websiteTitle() throws IOException {
+    public String websiteTitle() throws IOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void findCons() throws IOException {
+    public String findArticleBody() throws IOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void findPros() throws IOException {
+    public String findPros() throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String findCons() throws IOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
