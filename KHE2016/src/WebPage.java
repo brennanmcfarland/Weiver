@@ -10,12 +10,12 @@ public abstract class WebPage {
     /**
      * Web site publisher of the review.
      */
-    private String publisher;
+    String publisher;
 
     /**
      * Article title.
      */
-    private String articleTitle;
+    String articleTitle;
 
     /**
      * The author of the article.
@@ -25,7 +25,7 @@ public abstract class WebPage {
     /**
      * The review article body.
      */
-    private String articleBody;
+    String articleBody;
 
     /**
      * The URL of the review.
