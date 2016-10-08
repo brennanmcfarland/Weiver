@@ -22,6 +22,6 @@ public abstract class WebPage {
     /** The URL of the review. */
     private String URL;
     
-    
-    /* This is a test of github and Netbeans*/
+    /* Another test, because this is weird.*/
+
 }
