@@ -55,17 +55,27 @@ public class ParseCnet implements ParseWebPage {
         ParseCnet parseCnet = new ParseCnet();
         Scanner input = new Scanner(System.in);
         Document d = null;
-        System.out.print("input url: ");
-        String url = input.next();
+        System.out.print("Input Product (Brand and Phone): ");
+        StringBuilder sb = new StringBuilder();
+        String product = input.nextLine();
+        for(int i= 0; i < product.length();i++){
+            if(product.charAt(i) != ' '){
+            sb.append(product.charAt(i));
+            }
+            else{
+                sb.append('-');
+            }
+        }
+        product = ("https://www.cnet.com/products/" + sb.toString());
         input.close();
         try{
-            d = Jsoup.connect(url).timeout(6000).get();
+            d = Jsoup.connect(product).timeout(6000).get();
         }
         catch(Exception e){
-           System.out.println("ERROR! Invalid URL!"); 
+           System.out.println("ERROR! Invalid Product!"); 
            System.exit(0);
         }
-        System.out.println("Success! Valid URL!");
+        System.out.println("Success! Valid Product!");
         System.out.println(parseCnet.websiteTitle(d) + "\n");
         System.out.println(parseCnet.findPros(d) + "\n");
         System.out.println(parseCnet.findCons(d) + "\n");
