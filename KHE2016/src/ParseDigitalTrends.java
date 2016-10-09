@@ -31,23 +31,24 @@ public class ParseDigitalTrends {
         }
     }
     
-    String websiteTitle()throws IOException {
+    public String websiteTitle()throws IOException {
         // TODO Auto-generated method stub
 	return ("Title: " + d.title());
     }
     
-    void findArticleBody()throws IOException {
+    public String findArticleBody()throws IOException {
         // TODO Auto-generated method stub
         Elements body = d.getElementsByTag("article");
-        System.out.println(body.text());
+        return(body.text());
     }
 
-    String findPros()throws IOException {
+    public String findPros()throws IOException {
         // TODO Auto-generated method stub
-        return null;
+        Elements pros = d.select("div[class='m-good-bad good']");
+        return(pros.text());
     }
     
-    String findCons()throws IOException {
+    public String findCons()throws IOException {
         // TODO Auto-generated method stub
         return null;
     }
@@ -63,6 +64,7 @@ public class ParseDigitalTrends {
             parseDigitalTrends = new ParseDigitalTrends(url);
             System.out.println("Success! Valid URL!");
             System.out.println(parseDigitalTrends.websiteTitle() + "\n");
+            System.out.println(parseDigitalTrends.findArticleBody() + "\n");
             System.out.println(parseDigitalTrends.findPros() + "\n");
             System.out.println(parseDigitalTrends.findCons() + "\n");
         }
