@@ -1,5 +1,9 @@
 
 import java.io.IOException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -9,11 +13,11 @@ import java.io.IOException;
 
 /**
  *
- * @author joshreichman
+ * @author joshreichman, Emilio Lopez
  */
 public interface ParseWebPage {
-    public String websiteTitle()throws IOException;
-    public String findArticleBody()throws IOException;
-    public String findPros()throws IOException;
-    public String findCons()throws IOException;
+    public String websiteTitle(Document d)throws IOException;
+    public String findArticleBody(Document d)throws IOException;
+    public String findPros(Document d)throws IOException;
+    public String findCons(Document d)throws IOException;
 }
