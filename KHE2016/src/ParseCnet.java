@@ -114,13 +114,13 @@ public class ParseCnet implements ParseWebPage {
         
         try {
             parseCnet =  new ParseCnet();
-            System.out.println("Success! Valid URL!");
+            System.out.println("Success! Valid Product!");
             System.out.println(parseCnet.websiteTitle() + "\n");
             System.out.println(parseCnet.findPros() + "\n");
             System.out.println(parseCnet.findCons() + "\n");
             System.out.println(parseCnet.findArticleBody() + "\n");
         } catch (Exception e) {
-            System.out.println("ERROR! Invalid URL!");
+            System.out.println("ERROR! Invalid Product!");
             System.exit(0);
         }
 
