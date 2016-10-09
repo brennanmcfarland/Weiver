@@ -6,7 +6,7 @@ import org.json.simple.parser.JSONParser;
 import java.util.Scanner;
 import java.io.*;
 
-class Terms {
+public class Terms {
     public FrequencyTable termFrequency; //holds terms and their frequencies
     public Hashtable ignorePhrases; //holds words/phrases to ignore
     
