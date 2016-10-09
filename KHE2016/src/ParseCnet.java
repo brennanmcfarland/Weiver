@@ -40,9 +40,8 @@ public class ParseCnet implements ParseWebPage {
 
     @Override
     public String findArticleBody() throws IOException {
-        // TODO Auto-generated method stub
-        // Not Complete!
-        throw new UnsupportedOperationException();
+        Elements body = d.getElementsByTag("article");
+        return(body.text());
     }
 
     @Override
@@ -107,6 +106,7 @@ public class ParseCnet implements ParseWebPage {
             System.out.println(parseCnet.websiteTitle() + "\n");
             System.out.println(parseCnet.findPros() + "\n");
             System.out.println(parseCnet.findCons() + "\n");
+            System.out.println(parseCnet.findArticleBody() + "\n");
         } catch (Exception e) {
             System.out.println("ERROR! Invalid URL!");
             System.exit(0);
