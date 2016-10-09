@@ -7,8 +7,8 @@ import java.util.ListIterator;
 public class FrequencyTable {
 
   public class Entry {
-    private String term;
-    private int frequency;
+    public String term;
+    public int frequency;
 
     public Entry(String trm, int freq) {
       term = trm;
@@ -23,22 +23,28 @@ public class FrequencyTable {
   private ArrayList<LinkedList<Entry>> table;
   private int numentries;
   private int tablesize;
-
+  
   //initialize the table
   public FrequencyTable() {
       numentries = 0;
       //initialize with 20 entries
       table = new ArrayList<LinkedList<Entry>>();
-      table.ensureCapacity(20);
-      for(int i=0; i<20; i++) { //initialize the LLs
+      tablesize = 20; 
+      table.ensureCapacity(tablesize);
+      for(int i=0; i<tablesize; i++) { //initialize the LLs
         table.add(new LinkedList<Entry>());
       }
       //System.out.println(table.size());
+      System.out.println("whhhhy1"); 
   }
 
   //return the number of entries in the hashtable
   public int getSize() {
       return numentries;
+  }
+  
+  public int getTableSize() {
+      return tablesize; 
   }
 
   //probe the hashtable to return a table position given a frequency as key
@@ -68,6 +74,12 @@ public class FrequencyTable {
       //if we didnt' find the element, just return null
       return null;
 
+  }
+  
+  //retrieve LinkedList at ArrayList index 
+  public LinkedList<Entry> get (int frq) {
+      int bucket = probe(frq); 
+      return table.get(frq); 
   }
 
   //insert an entry in the hashtable
@@ -110,6 +122,15 @@ public class FrequencyTable {
     //if we didnt' find the element, just return null
     return null;
   }
+  
+  public String toString () {
+      String tableString = null; 
+      for (int i = 0; i < this.getTableSize(); ) 
+      {
+          tableString += (this.get(i)).toString();
+      }
+      return this.getTableSize() + tableString + "Is this working?"; 
+  }
 
   //double table size
   private void growTable() {
@@ -120,6 +141,7 @@ public class FrequencyTable {
     for(int i=0; i<table.size()*2; i++) { //initialize the LLs
       table.add(new LinkedList<Entry>());
     }
+    tablesize = table.size(); 
     //move the last LL to the new last space
     table.set(table.size()-1, oldtable.get(table.size()-1));
     //rehash everything except the last LL
