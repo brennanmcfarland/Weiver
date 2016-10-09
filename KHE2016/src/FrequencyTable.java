@@ -164,18 +164,25 @@ public class FrequencyTable {
 
   //double table size
   private void growTable() {
+      System.out.println("about to resize table");
     //double the size of the table
     ArrayList<LinkedList<Entry>> oldtable = table;
-    table = new ArrayList<LinkedList<Entry>>();
-    table.ensureCapacity(table.size()*2);
+    System.out.println(oldtable.size());
+    table = new ArrayList<LinkedList<Entry>>(oldtable.size() * 2);
+    System.out.println("about to enter loop; also, table size is " + oldtable.size());
     for(int i=0; i<table.size()*2; i++) { //initialize the LLs
-      table.add(new LinkedList<Entry>());
+      table.set(i,new LinkedList<Entry>());
     }
+    System.out.println("completed loop");
     tablesize = table.size(); 
+    System.out.println("about to move last LL");
     //move the last LL to the new last space
-    table.set(table.size()-1, oldtable.get(table.size()-1));
+    System.out.println(oldtable.size()-1);
+    System.out.println(oldtable.size()-1 + " | ");
+    table.set(oldtable.size()-1, oldtable.get(oldtable.size()-1));
+    System.out.println("halfway through resizing");
     //rehash everything except the last LL
-    for(int i=0; i<table.size()-1; i++) { //for each bucket
+    for(int i=0; i<oldtable.size()*2-1; i++) { //for each bucket
       LinkedList bucket = table.get(i);
       if(bucket != null) { //in each non-null LL
         ListIterator<Entry> iterator =
@@ -189,6 +196,7 @@ public class FrequencyTable {
         }
       }
     }
+    System.out.println("resized table");
   }
 
 }

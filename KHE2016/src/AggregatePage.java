@@ -24,6 +24,7 @@ public class AggregatePage {
     }
 
     private int findTermCount(String w, String page) {
+        System.out.println("Find term count"); 
         page = " " + page + " ";
         int index = page.indexOf(" " + w + " ");
         int count = 0;
@@ -41,6 +42,7 @@ public class AggregatePage {
     }
 
     private void wordsContained(String txt) {
+        System.out.println("got to this point");
         int j = 0;
         String x = "";
         while (j < body.length()) {
@@ -52,11 +54,13 @@ public class AggregatePage {
             }
             j += x.length() + 1;
         }
-
+        System.out.println("End of WC"); 
+        System.out.println(words);
         this.words = words + " ";
     }
 
     private String getString(String pT, int m) {
+        System.out.println("got to getString");
         String s = "";
         for (int i = m; i < pT.length(); i++) {
             if (pT.charAt(i) != ' ') {
@@ -87,9 +91,12 @@ public class AggregatePage {
     public FrequencyTable findTermFrequency() {
         wordsContained(body + " ");
         String[] splits = words.split(" ");
+        System.out.println("ftf");
         for (String word : splits) {
             frq.insert(word, findTermCount(word, body));
+            System.out.println(frq); 
         }
+        System.out.println("got to the end of findterm frequency");
         return frq;
     }
 
@@ -121,7 +128,7 @@ public class AggregatePage {
     public static void main(String[] args) throws IOException {
         AggregatePage p = new AggregatePage("Emilio", "Title", "This is a a a a a he he he he Joe Joe Joe Joe Joe aardvark aardvark aardvark aardvark test to figure out if anything works. This is seriously test.");
         Terms terms = new Terms();
-        terms.parseFileIgnorePhrases("C:\\Users\\ei_lo\\Documents\\GitHub\\khe2016\\KHE2016\\ignorePhrases.json");
+        terms.parseFileIgnorePhrases("ignorePhrases.json");
         System.out.println(filter(p.findTermFrequency(),terms));
     }
 

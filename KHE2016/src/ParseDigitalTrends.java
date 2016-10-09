@@ -21,6 +21,7 @@ import java.util.Scanner;
 public class ParseDigitalTrends {
 
     Document d; //jsoup document for parsing
+    protected String publisher = "Digital Trends";
 
     public ParseDigitalTrends(String prdct) throws NullQueryException{
         StringBuilder sb = new StringBuilder();
