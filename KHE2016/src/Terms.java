@@ -10,6 +10,10 @@ class Terms {
     public FrequencyTable termFrequency; //holds terms and their frequencies
     public Hashtable ignorePhrases; //holds words/phrases to ignore
     
+    //initialize Terms
+    public Terms() {
+        ignorePhrases = new Hashtable(255); //because 255 is a nice number
+    }
     //loads+parses a json file to load the phrases to ignore
     public void parseFileIgnorePhrases(String filename) throws IOException {
         //load the unparsed json from the file
@@ -28,13 +32,14 @@ class Terms {
         JSONParser parser = new JSONParser();
         try {
             JSONArray parsedJson = (JSONArray)(parser.parse(unparsedJson));
-            System.out.println("first element is " + parsedJson.get(0));
-            System.out.println("array size is " + parsedJson.size());
+            
+            //then put the array elements of that object in the hashtable
+            for(int i=0; i<parsedJson.size(); i++)
+                ignorePhrases.put(parsedJson.get(i).hashCode(), parsedJson.get(i));
         }catch(ParseException pe) {
             System.out.println("Error: parsing error");
             System.exit(0);
         }
-        //then convert put the array elements of that object in the hashtable
     }
     
     public static void main(String[] args) {
