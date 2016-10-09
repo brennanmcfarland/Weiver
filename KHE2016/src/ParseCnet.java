@@ -1,6 +1,5 @@
 
 import java.io.IOException;
-import java.util.regex.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,7 +14,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author joshreichman
+ * @author joshreichman, Emilio Lopez
  */
 public class ParseCnet implements ParseWebPage {
 
