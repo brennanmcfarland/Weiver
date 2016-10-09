@@ -124,6 +124,34 @@ public class FrequencyTable {
     return null;
   }
   
+//remove and return an entry from the hashtable
+  public Entry remove(int freq) {
+    int bucket = probe(freq); //find the index to remove the new entry from
+    //return table.get(bucket).remove()
+    Entry removed;
+    //return table.get(bucket).remove(removed = (removed.term.equals(trm))?Entry:null);
+    ListIterator<Entry> iterator =
+      table.get(bucket).listIterator(0); //get the iterator
+    //the index of the node in the LL
+    Entry index = iterator.next();
+    index = iterator.previous();
+    while(index != null) {
+      //if this is the element
+        numentries--;//decrement table size
+        table.get(bucket).remove(index);
+        return index;
+        //and remove the key from the LL
+        /*if(iterator.hasPrevious())
+          index.previous().next = index.next;
+        else
+          return table.get(bucket).removeFirst();*/
+      }
+      //otherwise go to the next element
+      index = iterator.next();
+    //if we didnt' find the element, just return null
+    return null;
+  }
+  
   public String toString () {
       String tableString = ""; 
       for (int i = 0; i < this.getTableSize(); i++) 
