@@ -124,12 +124,13 @@ public class FrequencyTable {
   }
   
   public String toString () {
-      String tableString = null; 
-      for (int i = 0; i < this.getTableSize(); ) 
+      String tableString = ""; 
+      for (int i = 0; i < this.getTableSize(); i++) 
       {
+        if(table.get(i).size() > 0)
           tableString += (this.get(i)).toString();
       }
-      return this.getTableSize() + tableString + "Is this working?"; 
+      return tableString; 
   }
 
   //double table size
