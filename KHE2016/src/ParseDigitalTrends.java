@@ -20,6 +20,7 @@ public class ParseDigitalTrends {
     
     Document d; //jsoup document for parsing
     
+    //connects to the page and initializes documet for parsing
     public ParseDigitalTrends(String url) {
         try{
             d=Jsoup.connect(url).timeout(6000).get();
@@ -31,30 +32,31 @@ public class ParseDigitalTrends {
         }
     }
     
+    //returns the article title parsed on the webpage as a string
     public String websiteTitle()throws IOException {
-        // TODO Auto-generated method stub
 	return ("Title: " + d.title());
     }
     
+    //returns the article body on the webpage parsed as a string
     public String findArticleBody()throws IOException {
-        // TODO Auto-generated method stub
         Elements body = d.getElementsByTag("article");
         return(body.text());
     }
-
+    
+    //returns the pros on the webpage parsed as a string
     public String findPros()throws IOException {
-        // TODO Auto-generated method stub
         Elements pros = d.select("div[class='m-good-bad good']");
-        return(pros.text());
+        return(pros.text().substring(6));
     }
     
+    //returns the cons on the webpage parsed as a string
     public String findCons()throws IOException {
-        // TODO Auto-generated method stub
-        return null;
+        Elements cons = d.select("div[class='m-good-bad bad']");
+        return(cons.text().substring(5));
     }
     
+    //for testing input only, not to be used in final version
     public static void main(String[] args) throws IOException, IllegalArgumentException {
-        // TODO Auto-generated method stub
         ParseDigitalTrends parseDigitalTrends;
         Scanner input = new Scanner(System.in);
         System.out.print("input url: ");
@@ -74,19 +76,4 @@ public class ParseDigitalTrends {
         }
         
     }
-    /*
-    @Override
-    public void websiteTitle() throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void findCons() throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void findPros() throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  */
 }
