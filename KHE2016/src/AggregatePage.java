@@ -1,27 +1,26 @@
+
+import java.io.IOException;
+
 //Sophie Salomon
 //Takes text from each webpage, sort by term frequency, then eliminate irrelevant words
 //Choose priority terms 
 //Count positive/negative/neutral phrases 
-//import java.net.URL;
 
 public class AggregatePage {
-
-    //private Terms terms = new Terms();  --- Make static 
+    
     private String publisher;
     private String title;
     private String body;
-    private String pros;
-    private String cons;
     private FrequencyTable frq = new FrequencyTable();
     private Object[][] priorityTermFrequency = new Object[10][2];
     private String words = " ";
+    private static FrequencyTable filteredTerms = new FrequencyTable(); 
+    private FrequencyTable prioritizedTerms = new FrequencyTable(); 
 
-    public AggregatePage(String publisher, String title, String body, String pros, String cons) {
+    public AggregatePage(String publisher, String title, String body) {
         this.publisher = publisher;
         this.title = title;
         this.body = body.toLowerCase().replaceAll("[^A-Za-z0-9 ]", "");
-        this.pros = pros;
-        this.cons = cons;
     }
 
     private int findTermCount(String w, String page) {
@@ -68,6 +67,22 @@ public class AggregatePage {
         }
         return s;
     }
+    
+    public static FrequencyTable filter (FrequencyTable ft) {
+        FrequencyTable.Entry e;
+        for (int i = 3; i < ft.getTableSize(); i++) 
+        {
+            for (int j = 0; j < ft.get(i).size(); j ++)
+            {
+                e =  ft.get(i).get(j);
+                if (e != null)
+                    if (Terms.ignorePhrases.contains(e.getString().hashCode())) {}
+                    else 
+                        filteredTerms.get(i).add(e); 
+            }
+        }
+        return filteredTerms; 
+    }
 
     public FrequencyTable findTermFrequency() {
         wordsContained(body + " ");
@@ -103,23 +118,11 @@ public class AggregatePage {
         return body;
     }
 
-    /**
-     * @return the pros
-     */
-    public String getPros() {
-        return pros;
-    }
-
-    /**
-     * @return the cons
-     */
-    public String getCons() {
-        return cons;
-    }
-
-    public static void main(String[] args) {
-        AggregatePage p = new AggregatePage("Emilio", "Title", "This is a test to figure out if anything works. This is seriously test.", "ye", "nah");
-        System.out.println(p.findTermFrequency());
+    public static void main(String[] args) throws IOException {
+        AggregatePage p = new AggregatePage("Emilio", "Title", "This is a a a a a he he he he Joe Joe Joe Joe Joe aardvark aardvark aardvark aardvark test to figure out if anything works. This is seriously test.");
+        Terms terms = new Terms();
+        terms.parseFileIgnorePhrases("C:\\Users\\ei_lo\\Documents\\GitHub\\khe2016\\KHE2016\\ignorePhrases.json");
+        System.out.println(filter(p.findTermFrequency()));
     }
 
 }

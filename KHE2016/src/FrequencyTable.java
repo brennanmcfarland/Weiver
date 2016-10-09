@@ -15,7 +15,10 @@ public class FrequencyTable {
       frequency = freq;
     }
     public String toString() {
-      return term + frequency;
+      return term + " " + frequency;
+    }
+    public String getString () {
+        return term; 
     }
   }
 
@@ -34,8 +37,6 @@ public class FrequencyTable {
       for(int i=0; i<tablesize; i++) { //initialize the LLs
         table.add(new LinkedList<Entry>());
       }
-      //System.out.println(table.size());
-      System.out.println("whhhhy1"); 
   }
 
   //return the number of entries in the hashtable
@@ -128,7 +129,7 @@ public class FrequencyTable {
       for (int i = 0; i < this.getTableSize(); i++) 
       {
         if(table.get(i).size() > 0)
-          tableString += (this.get(i)).toString();
+            tableString += (this.get(i)).toString();
       }
       return tableString; 
   }
