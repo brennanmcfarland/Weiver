@@ -16,8 +16,8 @@ import org.jsoup.select.Elements;
  * @author joshreichman, Emilio Lopez
  */
 public interface ParseWebPage {
-    public String websiteTitle(Document d)throws IOException;
-    public String findArticleBody(Document d)throws IOException;
-    public String findPros(Document d)throws IOException;
-    public String findCons(Document d)throws IOException;
+    public String websiteTitle()throws IOException;
+    public String findArticleBody()throws IOException;
+    public String findPros()throws IOException;
+    public String findCons()throws IOException;
 }
