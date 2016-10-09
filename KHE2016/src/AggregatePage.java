@@ -68,7 +68,7 @@ public class AggregatePage {
         return s;
     }
     
-    public static FrequencyTable filter (FrequencyTable ft) {
+    public static FrequencyTable filter (FrequencyTable ft, Terms ignore) {
         FrequencyTable.Entry e;
         for (int i = 3; i < ft.getTableSize(); i++) 
         {
@@ -76,7 +76,7 @@ public class AggregatePage {
             {
                 e =  ft.get(i).get(j);
                 if (e != null)
-                    if (Terms.ignorePhrases.contains(e.getString().hashCode())) {}
+                    if (ignore.ignorePhrases.contains(e.getString())) {}
                     else 
                         filteredTerms.get(i).add(e); 
             }
@@ -122,7 +122,7 @@ public class AggregatePage {
         AggregatePage p = new AggregatePage("Emilio", "Title", "This is a a a a a he he he he Joe Joe Joe Joe Joe aardvark aardvark aardvark aardvark test to figure out if anything works. This is seriously test.");
         Terms terms = new Terms();
         terms.parseFileIgnorePhrases("C:\\Users\\ei_lo\\Documents\\GitHub\\khe2016\\KHE2016\\ignorePhrases.json");
-        System.out.println(filter(p.findTermFrequency()));
+        System.out.println(filter(p.findTermFrequency(),terms));
     }
 
 }
