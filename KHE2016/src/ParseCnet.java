@@ -21,16 +21,15 @@ public class ParseCnet implements ParseWebPage {
     protected String publisher = "CNet";
 
     public ParseCnet() {
-        
+
         System.out.print("Input Product (Brand and Phone): ");
         Scanner input = new Scanner(System.in);
         StringBuilder sb = new StringBuilder();
         String product = input.nextLine();
-        for(int i= 0; i < product.length();i++){
-            if(product.charAt(i) != ' '){
-            sb.append(product.charAt(i));
-            }
-            else{
+        for (int i = 0; i < product.length(); i++) {
+            if (product.charAt(i) != ' ') {
+                sb.append(product.charAt(i));
+            } else {
                 sb.append('-');
             }
         }
@@ -39,9 +38,8 @@ public class ParseCnet implements ParseWebPage {
 
         try {
             d = Jsoup.connect(product).timeout(6000).get();
-            System.out.println("Connected! \n");
         } catch (Exception e) {
-            System.out.println("Failed to connect!");
+            System.out.println("ERROR! Invalid Product!");
             System.exit(0);
         }
 
@@ -56,7 +54,7 @@ public class ParseCnet implements ParseWebPage {
     @Override
     public String findArticleBody() throws IOException {
         Elements body = d.getElementsByTag("article");
-        return(body.text());
+        return (body.text());
     }
 
     @Override
@@ -111,10 +109,10 @@ public class ParseCnet implements ParseWebPage {
         // TODO Auto-generated method stub
 
         ParseCnet parseCnet;
-        
+
         try {
-            parseCnet =  new ParseCnet();
-            System.out.println("Success! Valid Product!");
+            parseCnet = new ParseCnet();
+            System.out.println("Success! Valid Product!\n\n");
             System.out.println(parseCnet.websiteTitle() + "\n");
             System.out.println(parseCnet.findPros() + "\n");
             System.out.println(parseCnet.findCons() + "\n");
