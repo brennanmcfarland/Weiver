@@ -22,11 +22,9 @@ public class ParseDigitalTrends {
 
     Document d; //jsoup document for parsing
 
-    public ParseDigitalTrends() {
-        System.out.print("Input Product (Brand and Phone): ");
-        Scanner input = new Scanner(System.in);
+    public ParseDigitalTrends(String prdct) {
         StringBuilder sb = new StringBuilder();
-        String product = input.nextLine();
+        String product = prdct;
         for (int i = 0; i < product.length(); i++) {
             if (product.charAt(i) != ' ') {
                 sb.append(product.charAt(i));
@@ -34,12 +32,11 @@ public class ParseDigitalTrends {
                 sb.append('-');
             }
         }
-        input.close();
         product = ("http://www.digitaltrends.com/cell-phone-reviews/" + sb.toString() + "-review/");
         try {
             d = Jsoup.connect(product).timeout(6000).get();
         } catch (Exception e) {
-            System.out.println("ERROR! Invalid Product!");
+            System.out.println("ERROR! This product could not be found on DigitalTrends!");
             System.exit(0);
         }
     }
@@ -79,7 +76,7 @@ public class ParseDigitalTrends {
         Elements cons = d.select("div[class='m-good-bad bad']");
         return (cons.text().substring(5));
     }
-
+    /*
     //for testing input only, not to be used in final version
     public static void main(String[] args) throws IOException, IllegalArgumentException {
         ParseDigitalTrends parseDigitalTrends;
@@ -97,5 +94,5 @@ public class ParseDigitalTrends {
             System.exit(0);
         }
 
-    }
+    }*/
 }

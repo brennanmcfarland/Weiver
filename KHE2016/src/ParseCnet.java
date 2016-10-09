@@ -20,12 +20,10 @@ public class ParseCnet implements ParseWebPage {
     protected Document d;
     protected String publisher = "CNet";
 
-    public ParseCnet() {
+    public ParseCnet(String prdct) {
 
-        System.out.print("Input Product (Brand and Phone): ");
-        Scanner input = new Scanner(System.in);
         StringBuilder sb = new StringBuilder();
-        String product = input.nextLine();
+        String product = prdct;
         for (int i = 0; i < product.length(); i++) {
             if (product.charAt(i) != ' ') {
                 sb.append(product.charAt(i));
@@ -33,13 +31,12 @@ public class ParseCnet implements ParseWebPage {
                 sb.append('-');
             }
         }
-        input.close();
         product = ("https://www.cnet.com/products/" + sb.toString());
 
         try {
             d = Jsoup.connect(product).timeout(6000).get();
         } catch (Exception e) {
-            System.out.println("ERROR! Invalid Product!");
+            System.out.println("ERROR! This product could not be found on Cnet!");
             System.exit(0);
         }
 
@@ -104,7 +101,7 @@ public class ParseCnet implements ParseWebPage {
         String returnString = sb.toString().substring(7);
         return ("Cons: " + returnString);
     }
-
+    /*
     public static void main(String[] args) throws IOException, IllegalArgumentException {
         // TODO Auto-generated method stub
 
@@ -122,5 +119,5 @@ public class ParseCnet implements ParseWebPage {
             System.exit(0);
         }
 
-    }
+    }*/
 }
