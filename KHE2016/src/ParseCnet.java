@@ -20,7 +20,7 @@ public class ParseCnet implements ParseWebPage {
     protected Document d;
     protected String publisher = "CNet";
 
-    public ParseCnet(String prdct) {
+    public ParseCnet(String prdct) throws NullQueryException {
 
         StringBuilder sb = new StringBuilder();
         String product = prdct;
@@ -36,8 +36,7 @@ public class ParseCnet implements ParseWebPage {
         try {
             d = Jsoup.connect(product).timeout(6000).get();
         } catch (Exception e) {
-            System.out.println("ERROR! This product could not be found on Cnet!");
-            System.exit(0);
+            throw new NullQueryException("product not found on Cnet!");
         }
 
     }

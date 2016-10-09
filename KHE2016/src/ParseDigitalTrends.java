@@ -22,7 +22,7 @@ public class ParseDigitalTrends {
 
     Document d; //jsoup document for parsing
 
-    public ParseDigitalTrends(String prdct) {
+    public ParseDigitalTrends(String prdct) throws NullQueryException{
         StringBuilder sb = new StringBuilder();
         String product = prdct;
         for (int i = 0; i < product.length(); i++) {
@@ -36,8 +36,7 @@ public class ParseDigitalTrends {
         try {
             d = Jsoup.connect(product).timeout(6000).get();
         } catch (Exception e) {
-            System.out.println("ERROR! This product could not be found on DigitalTrends!");
-            System.exit(0);
+            throw new NullQueryException("product not found on DigitalTrends!");
         }
     }
 
