@@ -8,7 +8,7 @@ import java.io.*;
 
 public class Terms {
     public FrequencyTable termFrequency; //holds terms and their frequencies
-    public Hashtable ignorePhrases; //holds words/phrases to ignore
+    public static Hashtable ignorePhrases; //holds words/phrases to ignore
     
     //initialize Terms
     public Terms() {
