@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 import java.io.IOException;
 import java.util.regex.*;
@@ -25,19 +24,20 @@ public class ParseCnet implements ParseWebPage {
         // TODO Auto-generated constructor stub
     }
 
+    @Override
     public String websiteTitle(Document d) throws IOException {
         // TODO Auto-generated method stub
         return ("Title: " + d.title());
     }
 
     @Override
-    public void findArticleBody() throws IOException {
+    public String findArticleBody(Document d) throws IOException {
         // TODO Auto-generated method stub
         // Not Complete!
         throw new UnsupportedOperationException();
     }
 
-
+    @Override
     public String findPros(Document d) throws IOException {
         // TODO Auto-generated method stub
         StringBuilder sb = new StringBuilder();
@@ -101,7 +101,5 @@ public class ParseCnet implements ParseWebPage {
         System.out.println(parseCnet.websiteTitle(d) + "\n");
         System.out.println(parseCnet.findPros(d) + "\n");
         System.out.println(parseCnet.findCons(d) + "\n");
-
-        
     }
 }
