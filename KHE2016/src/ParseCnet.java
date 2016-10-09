@@ -17,7 +17,8 @@ import java.util.Scanner;
  */
 public class ParseCnet implements ParseWebPage {
 
-    Document d;
+    protected Document d;
+    protected String publisher = "CNet";
 
     public ParseCnet(String url) {
         // TODO Auto-generated constructor stub
