@@ -45,12 +45,13 @@ public class ParseDigitalTrends {
     public String findPros()throws IOException {
         // TODO Auto-generated method stub
         Elements pros = d.select("div[class='m-good-bad good']");
-        return(pros.text());
+        return(pros.text().substring(6));
     }
     
     public String findCons()throws IOException {
         // TODO Auto-generated method stub
-        return null;
+        Elements cons = d.select("div[class='m-good-bad bad']");
+        return(cons.text().substring(5));
     }
     
     public static void main(String[] args) throws IOException, IllegalArgumentException {
