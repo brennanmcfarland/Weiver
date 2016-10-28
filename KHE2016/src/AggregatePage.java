@@ -74,16 +74,13 @@ public class AggregatePage {
     
     public static FrequencyTable filter (FrequencyTable ft, Terms ignore) {
         FrequencyTable.Entry e;
-        for (int i = 3; i < ft.getTableSize(); i++) 
+        for (int i = 3; i < ft.getSize(); i++) 
         {
-            for (int j = 0; j < ft.get(i).size(); j ++)
-            {
-                e =  ft.get(i).get(j);
-                if (e != null)
-                    if (ignore.ignorePhrases.contains(e.getString())) {}
-                    else 
-                        filteredTerms.get(i).add(e); 
-            }
+            e =  ft.get(i);
+            if (e != null)
+                if (ignore.ignorePhrases.contains(e.getString())) {}
+                else 
+                    filteredTerms.insert(e.term, e.frequency); 
         }
         return filteredTerms; 
     }

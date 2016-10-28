@@ -28,8 +28,7 @@ public class AggregatePages {
             //also test for edge cases in the future
             while(j < 5) {
                 //and this only works if there's enough terms in the max bucket
-                aggregatedTerms.add(page_termFrequencies.get(i).remove(
-                    page_termFrequencies.get(i).getSize()-1));
+                aggregatedTerms.add(page_termFrequencies.removeFirst());
                 j++;
             }
         }

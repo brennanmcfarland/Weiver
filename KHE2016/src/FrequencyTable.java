@@ -1,12 +1,14 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.ListIterator;
+import java.util.Iterator;
+import java.util.TreeSet;
 
 //the frequency sorted lists of terms, in a hashtable-like implementation
 //the key is the frequency
 public class FrequencyTable {
 
-  public class Entry {
+  //comparable interface orders the elements by frequency
+  public class Entry implements Comparable<Entry> {
     public String term;
     public int frequency;
 
@@ -20,13 +22,65 @@ public class FrequencyTable {
     public String getString () {
         return term; 
     }
+    public int compareTo(Entry o) {
+        return this.frequency-o.frequency;
+    }
   }
 
   //the table itself is an array list of linked list buckets of entries
-  private ArrayList<LinkedList<Entry>> table;
-  private int numentries;
-  private int tablesize;
+  //private ArrayList<LinkedList<Entry>> table;
   
+  /*
+        NEW STUFF
+  */
+  //private ArrayList<Entry> table;
+  private TreeSet<Entry> entries;
+          
+  public FrequencyTable() {
+      entries = new TreeSet<Entry>();
+  }
+  public int getSize() {
+      return entries.size();
+  }
+
+  //probe the hashtable to return a table position given a frequency as key
+  //public int probe(int freq) {
+  //    return e.size();
+  //}
+  //get an entry from the hashtable
+  public Entry get(String trm, int freq) {
+      Iterator<Entry> iterableentries = entries.descendingIterator();
+      while(iterableentries.hasNext()) {
+          Entry entry = iterableentries.next();
+          if(entry.term.equals(trm) && entry.frequency == freq)
+              return entry;
+      }
+      return null;
+  }
+  
+  public Entry get(int freq) {
+      Iterator<Entry> iterableentries = entries.descendingIterator();
+      while(iterableentries.hasNext()) {
+          Entry entry = iterableentries.next();
+          if(entry.frequency == freq)
+              return entry;
+      }
+      return null;
+  }
+  //insert an entry in the hashtable
+  //if larger than hashtable size, put in last spot instead of taking mod
+  public void insert(String trm, int freq) {
+      entries.add(new Entry(trm,freq));
+  }
+
+  //remove and return the top entry
+  public Entry removeFirst() {
+    return entries.pollFirst();
+  }
+  public String toString () {
+      return entries.toString(); 
+  }
+  /*
   //initialize the table
   public FrequencyTable() {
       numentries = 0;
@@ -115,7 +169,7 @@ public class FrequencyTable {
         /*if(iterator.hasPrevious())
           index.previous().next = index.next;
         else
-          return table.get(bucket).removeFirst();*/
+          return table.get(bucket).removeFirst();* /
       }
       //otherwise go to the next element
       index = iterator.next();
@@ -144,7 +198,7 @@ public class FrequencyTable {
         /*if(iterator.hasPrevious())
           index.previous().next = index.next;
         else
-          return table.get(bucket).removeFirst();*/
+          return table.get(bucket).removeFirst();* /
       }
       //otherwise go to the next element
       index = iterator.next();
@@ -197,6 +251,6 @@ public class FrequencyTable {
       }
     }
     System.out.println("resized table");
-  }
+  }*/
 
 }

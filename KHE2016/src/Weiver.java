@@ -3,8 +3,40 @@ import java.util.Scanner;
 public class Weiver {
 
     public static void main(String[] args) {
-
-        //get the product as input
+        //input
+        System.out.println("Input Product(Brand and Phone): ");
+        Scanner input = new Scanner(System.in);
+        String product = input.nextLine();
+        
+        ParseDigitalTrends parseDigitalTrends;
+        try {
+            parseDigitalTrends = new ParseDigitalTrends(product);
+        } catch (Exception NullQueryException) {
+            parseDigitalTrends = null;
+        }
+        ParseCnet parseCnet;
+        try {
+            parseCnet = new ParseCnet(product);
+        } catch (Exception NullQueryException) {
+            parseCnet = null;
+        }
+        
+        System.out.println("getting results...");
+        
+        if(parseDigitalTrends != null) {
+            try{
+                AggregatePage aggregateDigitalTrends = new AggregatePage(
+                    parseDigitalTrends.publisher, parseDigitalTrends.websiteTitle(),
+                    parseDigitalTrends.findArticleBody());
+                Terms terms = new Terms();
+                terms.parseFileIgnorePhrases("ignorePhrases.json");
+                System.out.println(AggregatePage.filter(
+                        aggregateDigitalTrends.findTermFrequency(), terms));
+            }catch(Exception IOException) {
+                System.out.println("IOException!");
+            }
+        }
+   /*     //get the product as input
         System.out.print("Input Product (Brand and Phone): ");
         Scanner input = new Scanner(System.in);
         String product = input.nextLine();
@@ -57,7 +89,7 @@ public class Weiver {
         } catch (Exception IOException) {
             System.out.println("IOException!");
         }
-
+*/
         /*
         TODO:
         check for null objects
