@@ -1,13 +1,21 @@
 import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.Hashtable;
 
 public class Weiver {
 
     public static void main(String[] args) {
-        //input
+        
+        //get input
         System.out.println("Input Product(Brand and Phone): ");
         Scanner input = new Scanner(System.in);
         String product = input.nextLine();
         
+        //create lists to hold term frequencies from all pages
+        LinkedList<FrequencyTable> termFrequencies = new LinkedList();
+        LinkedList<Hashtable> prioritizedTermFrequencies = new LinkedList();
+        
+        //process each webpage individually
         ParseDigitalTrends parseDigitalTrends;
         try {
             parseDigitalTrends = new ParseDigitalTrends(product);
@@ -30,12 +38,19 @@ public class Weiver {
                     parseDigitalTrends.findArticleBody());
                 Terms terms = new Terms();
                 terms.parseFileIgnorePhrases("ignorePhrases.json");
-                System.out.println(AggregatePage.filter(
+                termFrequencies.add(AggregatePage.filter(
                         aggregateDigitalTrends.findTermFrequency(), terms));
+                prioritizedTermFrequencies.add(
+                        aggregateDigitalTrends.findPrioritizedTermFrequency());
             }catch(Exception IOException) {
                 System.out.println("IOException!");
             }
         }
+        
+        //then process all pages as a group
+        AggregatePages pages = new AggregatePages(
+                termFrequencies, prioritizedTermFrequencies);
+        
    /*     //get the product as input
         System.out.print("Input Product (Brand and Phone): ");
         Scanner input = new Scanner(System.in);
