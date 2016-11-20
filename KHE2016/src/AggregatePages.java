@@ -33,8 +33,14 @@ public class AggregatePages {
         Hashtable page_prioReturn;
         
         //iterates through the frequency table and hash table to aggregate and sort
-        Iterator<FrequencyTable> iterableFrequencyTable = page_term.descendingIterator();
-        while(iterableFrequencyTable.hasNext()) {
+       // Iterator<FrequencyTable> iterableFrequencyTable = page_term.descendingIterator();
+        //while(iterableFrequencyTable.hasNext()) 
+        
+        //loops through the list
+        for(int i = 0; i < page_term.size(); i++) {
+            //iterates thorugh a frequency table
+            Iterator
+        }
             
         }
         
