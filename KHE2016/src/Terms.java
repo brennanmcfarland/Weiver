@@ -5,6 +5,7 @@ import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
 import java.util.Scanner;
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,15 +17,18 @@ import java.io.*;
  */
 
 public class Terms {
-    public FrequencyTable termFrequency; //holds terms and their frequencies
+    public static ArrayList priorityTerms; //holds priority terms
     public static Hashtable ignorePhrases; //holds words/phrases to ignore
     
     //initialize Terms
     public Terms() {
+        priorityTerms = new ArrayList();
         ignorePhrases = new Hashtable(255); //because 255 is a nice number
     }
-    //loads+parses a json file to load the phrases to ignore
-    public void parseFileIgnorePhrases(String filename) throws IOException {
+    
+    //loads+parses a json file to load the phrases to T: ignore F: prioritize
+    public void parseFilePhrases(String filename,
+            boolean ignore) throws IOException {
         //load the unparsed json from the file
         String unparsedJson = "";
         File file = new File(filename);
@@ -43,8 +47,15 @@ public class Terms {
             JSONArray parsedJson = (JSONArray)(parser.parse(unparsedJson));
             
             //then put the array elements of that object in the hashtable
-            for(int i=0; i<parsedJson.size(); i++)
-                ignorePhrases.put(parsedJson.get(i).hashCode(), parsedJson.get(i));
+            if(ignore == true) {
+                for(int i=0; i<parsedJson.size(); i++)
+                    ignorePhrases.put(parsedJson.get(i).hashCode(),
+                            parsedJson.get(i));
+            }
+            else {
+                for(int i=0; i<parsedJson.size(); i++)
+                    priorityTerms.add(parsedJson.get(i));
+            }
         }catch(ParseException pe) {
             System.out.println("Error: parsing error");
             System.exit(0);
@@ -55,7 +66,8 @@ public class Terms {
     public static void main(String[] args) {
         Terms terms = new Terms();
         try{
-            terms.parseFileIgnorePhrases("ignorePhrases.json");
+            terms.parseFilePhrases("ignorePhrases.json", true);
+            terms.parseFilePhrases("priorityPhrases.json", false);
         }catch(Exception IOException) {
             System.out.println("IO Exception");
             System.exit(0);
