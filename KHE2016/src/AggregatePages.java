@@ -1,6 +1,7 @@
 import java.util.LinkedList;
 import java.util.Hashtable;
 import java.util.Enumeration;
+import java.util.Iterator;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -39,14 +40,13 @@ public class AggregatePages {
         //loops through the list
         for(int i = 0; i < page_term.size(); i++) {
             //iterates thorugh a frequency table
-            Iterator
+            Iterator<FrequencyTable> iterableFrequencyTableNode = page_term.descendingIterator();
+            
         }
             
         }
-        
-    }
     //aggregrate most frequent terms across all pages
-    /*public LinkedList aggregateTerms() {
+    public LinkedList aggregateTerms() {
         //for now, it will just take the 5 most common terms from each
         //table and aggregate, can make more sophisticated later
         LinkedList aggregatedTerms = new LinkedList();
@@ -90,8 +90,8 @@ public class AggregatePages {
             }
             
         }*/
-       // return aggregatedTerms;
-    //}
+        return aggregatedTerms;
+    }
     
     //aggregate frequency of prioritized terms across all pages
     public Hashtable aggregatePrioritizedTerms() {
