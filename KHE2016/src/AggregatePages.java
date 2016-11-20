@@ -29,20 +29,41 @@ public class AggregatePages {
     }
     
     //iterates through the frequency table and the hashtable and combines them
-    public LinkedList aggregateTerms(LinkedList<FrequencyTable> page_term, LinkedList<Hashtable> page_prio) {
-        FrequencyTable page_termReturn;
-        Hashtable page_prioReturn;
+    public LinkedList aggregateTerms(LinkedList<FrequencyTable> page_termFreq, LinkedList<Hashtable> page_termPrio) {
+        FrequencyTable page_FreqReturn = new FrequencyTable();
+        Hashtable page_PrioReturn;
         
-        //iterates through the frequency table and hash table to aggregate and sort
-       // Iterator<FrequencyTable> iterableFrequencyTable = page_term.descendingIterator();
-        //while(iterableFrequencyTable.hasNext()) 
+        //Copies the Frequency table in node 0 to the return Frequency table
+        String[] terms = page_termFreq.get(0).termArray(page_termFreq.get(0));
+        int[] freqs = page_termFreq.get(0).freqArray(page_termFreq.get(0));
+        for(int i = 0; i < page_termFreq.get(0).getSize(); i++) {
+            page_FreqReturn.insert(terms[i], freqs[i]);
+        }       
+        //here, the list is empty and only the first Frequency table in the list is inserted to the return Frequency Table
+        /*for(int i = 0; i < page_termFreq.get(0).getSize(); i++) { 
+            page_FreqReturn.insert(page_termFreq.get(0).get(i).term, page_termFreq.get(0).get(i).frequency);
+        }*/
         
-        //loops through the list
-        for(int i = 0; i < page_term.size(); i++) {
-            //iterates thorugh a frequency table
-            Iterator<FrequencyTable> iterableFrequencyTableNode = page_term.descendingIterator();
-            
+        for(int i = 1; i < page_termFreq.size(); i++) { //iterates through the list starting at the second element
+            //int rdx = 0; //index for returnFrequency table??
+            int idx = 0;//index for the list Frequency table
+            //boolean stop = false;
+           // while(rdx < page_FreqReturn.getSize()) //iterates through the return tablee??
+                terms = page_termFreq.get(i).termArray(page_termFreq.get(i));
+                freqs = page_termFreq.get(i).freqArray(page_termFreq.get(i));
+            while(idx < terms.length) { //iterates through the specific elements' terms and frequencies
+                    if (page_FreqReturn.getTerm(terms[idx]) != null) { //need to aggregate frequencies
+                        page_FreqReturn.getTerm(terms[idx]).frequency = page_FreqReturn.getTerm(terms[idx]).frequency + freqs[idx];
+                    }
+                    else { //no need to aggregate frequencies because they are not like terms and this is a new element
+                         page_FreqReturn.insert(terms[idx], freqs[idx]);
+                    }
+            }
+                    
         }
+        //sorts the return Frequency table
+        page_termFinal = page_FreqReturn;
+             
             
         }
     //aggregrate most frequent terms across all pages

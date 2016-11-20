@@ -77,6 +77,53 @@ public class FrequencyTable {
   public void insert(String trm, int freq) {
       entries.add(new Entry(trm,freq));
   }
+  
+  //Lucas getter method for specific term string
+  public Entry getTerm(String trm) {
+      Iterator<Entry> iterableentries = entries.descendingIterator();
+      while(iterableentries.hasNext()) {
+          Entry entry = iterableentries.next();
+          if(entry.term.equals(trm))
+              return entry;
+      }
+      return null;
+  }
+  
+  //Lucas getter for entries
+  public TreeSet<Entry> getEntries() {
+      return this.entries;
+  }
+  
+  //Lucas Entry Iterator
+  public Iterator<Entry> makeIterator(FrequencyTable table) {
+       TreeSet<Entry> tableTree = new TreeSet<Entry>(table.getEntries()); 
+       Iterator<Entry> tableTreeEntriesIterator = tableTree.descendingIterator();
+       return tableTreeEntriesIterator;
+  }
+  
+  //Array parallel to frequency
+  public String[] termArray(FrequencyTable table) {
+      String[] termArray = new String[table.getSize()]; 
+      int idx = 0; //index of the array
+      Iterator<Entry> entry = makeIterator(table);
+      while(entry.hasNext()){
+          termArray[idx] = entry.next().term;
+          idx++;
+      }
+      return termArray;
+  }
+  
+  //Array parallel to 
+  public int[] freqArray(FrequencyTable table) {
+      int[] freqArray = new int[table.getSize()]; 
+      int idx = 0; //index of the array
+      Iterator<Entry> entry = makeIterator(table);
+      while(entry.hasNext()){
+          freqArray[idx] = entry.next().frequency;
+          idx++;
+      }
+      return freqArray;
+  }
 
   //remove and return the top entry
   public Entry removeFirst() {
