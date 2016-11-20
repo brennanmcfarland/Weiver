@@ -1,11 +1,18 @@
 import java.util.Hashtable;
 import java.io.IOException;
 
-//Sophie Salomon
-//Takes text from each webpage, sort by term frequency, then eliminate irrelevant words
-//Choose priority terms 
-//Count positive/negative/neutral phrases 
+/**
+ *
+ * @author Sophie Salomon
+ */
 
+/**
+ * for a given set of parsed webpage content (see ParseWebPage), sort words on
+ * that page by their frequency, filtering out common words such as "and",
+ * "the", etc, and putting the remaining, relevant words in filteredTerms
+ * also searches for specific priority terms and puts them in prioritizedTerms
+ * and gets information about the webpage: title, publisher, etc
+*/
 
 public class AggregatePage {
     
@@ -23,7 +30,8 @@ public class AggregatePage {
         this.title = title;
         this.body = body.toLowerCase().replaceAll("[^A-Za-z0-9 ]", "");
     }
-
+    
+    //find the frequency of a specific term
     private int findTermCount(String w, String page) {
         System.out.println("Find term count"); 
         page = " " + page + " ";
@@ -41,9 +49,10 @@ public class AggregatePage {
         }
         return count;
     }
-
+    
+    //I'm not sure why this is here, but I think it's doing something,
+    //so we will keep it
     private void wordsContained(String txt) {
-        System.out.println("got to this point");
         int j = 0;
         String x = "";
         while (j < body.length()) {
@@ -55,13 +64,12 @@ public class AggregatePage {
             }
             j += x.length() + 1;
         }
-        System.out.println("End of WC"); 
         System.out.println(words);
         this.words = words + " ";
     }
-
+    
+    //return the first word in a block of text starting at index m
     private String getString(String pT, int m) {
-        System.out.println("got to getString");
         String s = "";
         for (int i = m; i < pT.length(); i++) {
             if (pT.charAt(i) != ' ') {
@@ -73,6 +81,7 @@ public class AggregatePage {
         return s;
     }
     
+    //filters out words to ignore from the given frequency table
     public static FrequencyTable filter (FrequencyTable ft, Terms ignore) {
         FrequencyTable.Entry e;
         for (int i = 3; i < ft.getSize(); i++) 
@@ -85,7 +94,8 @@ public class AggregatePage {
         }
         return filteredTerms; 
     }
-
+    
+    //get the unfiltered frequency table of frequent terms
     public FrequencyTable findTermFrequency() {
         wordsContained(body + " ");
         String[] splits = words.split(" ");
@@ -94,35 +104,30 @@ public class AggregatePage {
             frq.insert(word, findTermCount(word, body));
             System.out.println(frq); 
         }
-        System.out.println("got to the end of findterm frequency");
         return frq;
     }
-
+    
+    //get the hash table of prioritized terms
     public Hashtable findPrioritizedTermFrequency() {
         return prioritizedTerms;
     }
 
-    /**
-     * @return the publisher
-     */
+    //return the article publisher
     public String getPublisher() {
         return publisher;
     }
 
-    /**
-     * @return the title
-     */
+    //return the article title
     public String getTitle() {
         return title;
     }
 
-    /**
-     * @return the body
-     */
+    //return the article body
     public String getBody() {
         return body;
     }
-
+    
+    //for testing purposes only
     public static void main(String[] args) throws IOException {
         AggregatePage p = new AggregatePage("Emilio", "Title", "This is a a a a a he he he he Joe Joe Joe Joe Joe aardvark aardvark aardvark aardvark test to figure out if anything works. This is seriously test.");
         Terms terms = new Terms();

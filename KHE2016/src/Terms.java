@@ -6,6 +6,15 @@ import org.json.simple.parser.JSONParser;
 import java.util.Scanner;
 import java.io.*;
 
+/**
+ *
+ * @author Brennan McFarland
+ */
+
+/**
+ * stores term frequencies and words/phrases to ignore
+ */
+
 public class Terms {
     public FrequencyTable termFrequency; //holds terms and their frequencies
     public static Hashtable ignorePhrases; //holds words/phrases to ignore
@@ -42,6 +51,7 @@ public class Terms {
         }
     }
     
+    //for testing purposes only
     public static void main(String[] args) {
         Terms terms = new Terms();
         try{

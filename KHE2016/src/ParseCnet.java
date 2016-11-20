@@ -6,22 +6,22 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.util.Scanner;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
- * @author joshreichman, Emilio Lopez
+ * @author Josh Eeichman, Emilio Lopez
  */
+
+/**
+ * given the product name, searches for the corresponding webpage on CNet
+ * and parses relevant data on that page as described in ParseWebPage
+ */
+
 public class ParseCnet implements ParseWebPage {
 
-    protected Document d;
+    protected Document d; //jsoup document for parsing
     protected String publisher = "CNet";
 
     public ParseCnet(String prdct) throws NullQueryException {
-
         StringBuilder sb = new StringBuilder();
         String product = prdct;
         for (int i = 0; i < product.length(); i++) {
@@ -41,21 +41,19 @@ public class ParseCnet implements ParseWebPage {
 
     }
 
-    @Override
+    //returns the article title parsed on the webpage as a string
     public String websiteTitle() throws IOException {
-        // TODO Auto-generated method stub
         return ("Title: " + d.title());
     }
 
-    @Override
+    //returns the article body on the webpage parsed as a string
     public String findArticleBody() throws IOException {
         Elements body = d.getElementsByTag("article");
         return (body.text());
     }
 
-    @Override
+    //returns the pros on the webpage parsed as a string
     public String findPros() throws IOException {
-        // TODO Auto-generated method stub
         StringBuilder sb = new StringBuilder();
         String title = d.select("div.quickinfo > *").toString();
         title = title.replaceAll("\\<.*?>", "");
@@ -73,9 +71,8 @@ public class ParseCnet implements ParseWebPage {
         return ("Pros: " + sb.toString());
     }
 
-    @Override
+    //returns the cons on the webpage parsed as a string
     public String findCons() throws IOException {
-        // TODO Auto-generated method stub
         int newLineCounter = 0;
 
         StringBuilder sb = new StringBuilder();

@@ -8,16 +8,18 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.util.Scanner;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *
+ * @author Brennan Mcfarland
  */
 
 /**
- *
- * @author brennanmcfarland
+ * given the product name, searches for the corresponding webpage on
+ * DigitalTrends and parses relevant data on that page as described in
+ * ParseWebPage
  */
+
+
 public class ParseDigitalTrends {
 
     Document d; //jsoup document for parsing
@@ -41,19 +43,6 @@ public class ParseDigitalTrends {
         }
     }
 
-    /*
-    //connects to the page and initializes documet for parsing
-    public ParseDigitalTrends(String url) {
-        try{
-            d=Jsoup.connect(url).timeout(6000).get();
-            System.out.println("Connected! \n");
-        }
-        catch(Exception IOException) {
-            System.out.println("Failed to connect!");
-            System.exit(0);
-        }
-    }
-     */
     //returns the article title parsed on the webpage as a string
     public String websiteTitle() throws IOException {
         return ("Title: " + d.title());
@@ -76,6 +65,7 @@ public class ParseDigitalTrends {
         Elements cons = d.select("div[class='m-good-bad bad']");
         return (cons.text().substring(5));
     }
+    
     /*
     //for testing input only, not to be used in final version
     public static void main(String[] args) throws IOException, IllegalArgumentException {
