@@ -11,14 +11,42 @@ import java.util.Enumeration;
 /**
  *
  * @author brennanmcfarland
+ * 
+ * Lucas Alva-Ganoza
  */
 public class AggregatePages {
     
     private LinkedList<FrequencyTable> page_termFrequencies; //pages' term frequencies
     private LinkedList<Hashtable> page_prioritizedTermFrequencies; //pages' prioritized freqs
+    FrequencyTable page_termFinal;
+    Hashtable page_prioFinal;
     
+    //constructor 
+    public AggregatePages(LinkedList<FrequencyTable> page_term, LinkedList<Hashtable> page_prio) {
+        page_termFrequencies = page_term;
+        page_prioritizedTermFrequencies = page_prio;
+    }
+    
+    //iterates through the frequency table and the hashtable and combines them
+    public LinkedList aggregateTerms(LinkedList<FrequencyTable> page_term, LinkedList<Hashtable> page_prio) {
+        FrequencyTable page_termReturn;
+        Hashtable page_prioReturn;
+        
+        //iterates through the frequency table and hash table to aggregate and sort
+       // Iterator<FrequencyTable> iterableFrequencyTable = page_term.descendingIterator();
+        //while(iterableFrequencyTable.hasNext()) 
+        
+        //loops through the list
+        for(int i = 0; i < page_term.size(); i++) {
+            //iterates thorugh a frequency table
+            Iterator
+        }
+            
+        }
+        
+    }
     //aggregrate most frequent terms across all pages
-    public LinkedList aggregateTerms() {
+    /*public LinkedList aggregateTerms() {
         //for now, it will just take the 5 most common terms from each
         //table and aggregate, can make more sophisticated later
         LinkedList aggregatedTerms = new LinkedList();
@@ -31,6 +59,8 @@ public class AggregatePages {
                 aggregatedTerms.add(page_termFrequencies.removeFirst());
                 j++;
             }
+            
+            
         }
         //combine all the tables
         //by combining all but the last bucket of the smaller one with the
@@ -60,8 +90,8 @@ public class AggregatePages {
             }
             
         }*/
-        return aggregatedTerms;
-    }
+       // return aggregatedTerms;
+    //}
     
     //aggregate frequency of prioritized terms across all pages
     public Hashtable aggregatePrioritizedTerms() {
