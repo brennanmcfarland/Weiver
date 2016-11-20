@@ -88,8 +88,8 @@ public class Weiver {
         /***********************************
             PROCESS ALL PAGES AS A GROUP
         ************************************/
-        AggregatePages pages = new AggregatePages(
-                termFrequencies, prioritizedTermFrequencies);
+        AggregatePages pages = new AggregatePages();
+        pages.aggregateTerms(termFrequencies, prioritizedTermFrequencies);
         
         /***********************************
             FORMAT AND DISPLAY OUTPUT

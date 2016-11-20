@@ -32,8 +32,13 @@ public class FormatOutput {
         StringBuilder output = new StringBuilder();
         
         output.append("_____OUTPUT_____");
-                
+        
+        //format data from the pages in aggregate
+        output.append(aggregateData.getAggregateTerms().toString());
+        
+        //format data from the individual pages
         for(int i=0; i<parsedPages.size(); i++) {
+            output.append("\n\n");
             output.append(formatPage(parsedPages.get(i),pageData.get(i)));
             output.append("\n\n");
         }
@@ -54,12 +59,10 @@ public class FormatOutput {
             output.append("\n\n");
             
             //format the pros
-            output.append("Pros: ");
             output.append(parsed.findPros());
             output.append("\n\n");
             
             //format the cons
-            output.append("Cons: ");
             output.append(parsed.findCons());
             output.append("\n\n");
             

@@ -19,13 +19,27 @@ public class AggregatePages {
     
     private LinkedList<FrequencyTable> page_termFrequencies; //pages' term frequencies
     private LinkedList<Hashtable> page_prioritizedTermFrequencies; //pages' prioritized freqs
-    FrequencyTable page_termFinal;
-    Hashtable page_prioFinal;
+    private FrequencyTable page_termFinal;
+    private Hashtable page_prioFinal;
+    
+    public AggregatePages() {
+        
+    }
     
     //constructor 
     public AggregatePages(LinkedList<FrequencyTable> page_term, LinkedList<Hashtable> page_prio) {
         page_termFrequencies = page_term;
         page_prioritizedTermFrequencies = page_prio;
+    }
+    
+    //return the aggregate frequency table
+    public FrequencyTable getAggregateTerms() {
+        return page_termFinal;
+    }
+    
+    //return the aggregate prioritized terms hash table
+    public Hashtable getAggregatePrioritizedTerms() {
+        return page_prioFinal;
     }
     
     //iterates through the frequency table and the hashtable and combines them
