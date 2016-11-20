@@ -29,7 +29,7 @@ public class AggregatePages {
     }
     
     //iterates through the frequency table and the hashtable and combines them
-    public LinkedList aggregateTerms(LinkedList<FrequencyTable> page_termFreq, LinkedList<Hashtable> page_termPrio) {
+    public void aggregateTerms(LinkedList<FrequencyTable> page_termFreq, LinkedList<Hashtable> page_termPrio) {
         FrequencyTable page_FreqReturn = new FrequencyTable();
         Hashtable page_PrioReturn;
         
@@ -164,9 +164,9 @@ public class AggregatePages {
         
         return null;
     }
-    
+    /*
     public static void main(String[] args) {
         AggregatePages aggregatePages = new AggregatePages();
         aggregatePages.aggregatePrioritizedTerms();
-    }
+    }*/
 }

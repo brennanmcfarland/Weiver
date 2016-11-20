@@ -33,7 +33,6 @@ public class AggregatePage {
     
     //find the frequency of a specific term
     private int findTermCount(String w, String page) {
-        System.out.println("Find term count"); 
         page = " " + page + " ";
         int index = page.indexOf(" " + w + " ");
         int count = 0;
@@ -64,7 +63,6 @@ public class AggregatePage {
             }
             j += x.length() + 1;
         }
-        System.out.println(words);
         this.words = words + " ";
     }
     
@@ -99,10 +97,8 @@ public class AggregatePage {
     public FrequencyTable findTermFrequency() {
         wordsContained(body + " ");
         String[] splits = words.split(" ");
-        System.out.println("ftf");
         for (String word : splits) {
             frq.insert(word, findTermCount(word, body));
-            System.out.println(frq); 
         }
         return frq;
     }

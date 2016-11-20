@@ -95,6 +95,7 @@ public class Weiver {
             FORMAT AND DISPLAY OUTPUT
         ************************************/
         FormatOutput output = new FormatOutput(parsedPages, pageData, pages);
+        output.printOutput();
         SecretClass x = new SecretClass();
         /*
         TODO:

@@ -22,6 +22,11 @@ public class FormatOutput {
         this.aggregateData = aggregateData;
     }
     
+    //print the formatted output
+    public void printOutput() {
+        System.out.println(formatPages());
+    }
+    
     //formats data from all the pages, individually and in aggregate
     public String formatPages() {
         StringBuilder output = new StringBuilder();
