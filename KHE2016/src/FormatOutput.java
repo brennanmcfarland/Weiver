@@ -1,5 +1,7 @@
 import java.util.LinkedList;
 import java.util.Iterator;
+import java.util.Hashtable;
+import java.util.Enumeration;
 
 /**
  *
@@ -31,10 +33,20 @@ public class FormatOutput {
     public String formatPages() {
         StringBuilder output = new StringBuilder();
         
-        output.append("_____OUTPUT_____");
+        output.append("_____OUTPUT_____\n");
         
         //format data from the pages in aggregate
+        //this first line is just a test to be deleted later
         output.append(aggregateData.getAggregateTerms().toString());
+        
+        //format the frequencies of the priority terms
+        Enumeration prioritizedTerms = 
+                aggregateData.aggregatePrioritizedTerms().elements();
+        while(prioritizedTerms.hasMoreElements()) {
+            prioritizedTerms.nextElement();
+            //output.append(prioritizedTerms.);
+        }
+        
         
         //format data from the individual pages
         for(int i=0; i<parsedPages.size(); i++) {
@@ -65,6 +77,13 @@ public class FormatOutput {
             //format the cons
             output.append(parsed.findCons());
             output.append("\n\n");
+            
+            //format the top 10 terms in order
+            output.append("Top ten terms from this page: ");
+            FrequencyTable filteredTerms = aggregated.getFilteredTerms();
+            for(int i=0; i<10; i++) {
+                output.append(filteredTerms.removeFirst().term);
+            }
                         
         }catch(Exception IOException) {
             System.out.println("Error formatting output");

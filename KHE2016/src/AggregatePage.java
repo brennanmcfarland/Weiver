@@ -79,6 +79,11 @@ public class AggregatePage {
         return s;
     }
     
+    //return the frequency table of filtered terms
+    public FrequencyTable getFilteredTerms() {
+        return filteredTerms;
+    }
+    
     //filters out words to ignore from the given frequency table
     public static FrequencyTable filter (FrequencyTable ft, Terms ignore) {
         FrequencyTable.Entry e;
