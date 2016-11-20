@@ -44,20 +44,44 @@ public class AggregatePages {
     
     //iterates through the frequency table and the hashtable and combines them
     public void aggregateTerms(LinkedList<FrequencyTable> page_termFreq, LinkedList<Hashtable> page_termPrio) {
+        page_prioritizedTermFrequencies = page_termPrio;
         FrequencyTable page_FreqTemp = new FrequencyTable();
-        Hashtable page_PrioTemp;
+        //merge the elements in the hash tables
+        String term;
+        int freq;
+        //for each subsequent hash table,
+        for(int i=1; i<page_termPrio.size(); i++) {
+            //search for each element in first hash table
+            Enumeration tablekeys = page_termPrio.get(i).keys();
+            Iterator tablevalues = page_termPrio.get(i).values().iterator();
+            while(tablekeys.hasMoreElements()) {
+                term = (String)tablekeys.nextElement();
+                freq = (int)tablevalues.next();
+                //if it's not present, add it, if it is then add frequencies
+                if(page_termPrio.get(0).containsKey(term)) {
+                    page_termPrio.get(0).get(term);
+                    page_termPrio.get(0).replace(term,
+                            (int)(page_termPrio.get(0).get(term))+freq);
+                }
+                else {
+                    page_termPrio.get(0).put(term, freq);
+                }
+            }
+        }
+        //and copy the value over to page_prioFinal
+        page_prioFinal = page_termPrio.get(0);
         
        //Experimental code starts here
        //while(!stop) {
        int max = maxFrequencyTableList(page_termFreq);// keeps track of maximum number of runs to get all items in all Frequency tables in the list'
        int idx = 0; //index to increment up until max
-       String[] terms = page_termFreq.get(0).termArray(page_termFreq.get(0));
-       int[] freqs = page_termFreq.get(0).freqArray(page_termFreq.get(0));
+       String[] terms = page_termFreq.get(0).termArray();
+       int[] freqs = page_termFreq.get(0).freqArray();
        while(idx < max) { //MAY HAVE PROBLEMS WITH RUNNING OUT OF BOUNDS BUT HONESTLY I HAVENT SLEPT IN A DAY GIVE US A BREAK
        for(int i = 0; i < page_termFreq.size(); i++) { //loop for iterating through the elements in the list
            if (page_termFreq.get(i).getSize() > idx) {
-               terms = page_termFreq.get(i).termArray(page_termFreq.get(i));
-               freqs = page_termFreq.get(i).freqArray(page_termFreq.get(i));
+               terms = page_termFreq.get(i).termArray();
+               freqs = page_termFreq.get(i).freqArray();
                if(page_FreqTemp.getTerm(terms[idx]) != null) {  //case where aggregation is needed
                    page_FreqTemp.getTerm(terms[idx]).frequency = page_FreqTemp.getTerm(terms[idx]).frequency + freqs[idx];
                }
@@ -80,32 +104,6 @@ public class AggregatePages {
             
         }
         return max;
-    }
-    
-    //Sort and aggregate methods
-    public void aggroSort(String[] terms, int[] freqs) {
-        String[] tempTerms = new String[terms.length];
-        int[] tempFreqs = new int[freqs.length];
-        aggroSort(terms, freqs, tempTerms, tempFreqs, 0, terms.length - 1);
-    }
-    
-    private void aggroSort(String[] terms, int[] freqs, String[] tempTerms, int[] tempFreqs, int left, int right) {
-        if (left < right) {
-        int center = (left + right) / 2;
-        aggroSort(terms, freqs, tempTerms, tempFreqs, left, center);
-        aggroSort(terms, freqs, tempTerms, tempFreqs, center + 1, right);
-        aggroMerge(terms, freqs, tempTerms, tempFreqs, left, center + 1, right );
-        }
-    }
-    
-    private void aggroMerge(String[] terms, int[] freqs, String[] tempTerms, int[] tempFreqs, int leftPos, int rightPos, int rightEnd) {
-        //main aggreagation loop
-        
-        int leftEnd = rightPos - 1;
-        int tempPos = leftPos;
-        int totalElements = right - leftPos + 1;
-        //main sorting loop
-        while(left)
     }
     
     //aggregrate most frequent terms across all pages

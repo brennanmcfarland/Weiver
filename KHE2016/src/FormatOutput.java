@@ -39,9 +39,16 @@ public class FormatOutput {
         //this first line is just a test to be deleted later
         output.append(aggregateData.getAggregateTerms().toString());
         
+        //format the top 10 terms in order
+        output.append("Top ten terms: ");
+        String[] mostcommonterms = aggregateData.getAggregateTerms().termArray();
+        for(int i=0; i<10; i++) {
+            output.append(mostcommonterms[i]);
+        }
+            
         //format the frequencies of the priority terms
         Enumeration prioritizedTerms = 
-                aggregateData.aggregatePrioritizedTerms().elements();
+                aggregateData.getAggregatePrioritizedTerms().elements();
         while(prioritizedTerms.hasMoreElements()) {
             prioritizedTerms.nextElement();
             //output.append(prioritizedTerms.);
@@ -80,9 +87,9 @@ public class FormatOutput {
             
             //format the top 10 terms in order
             output.append("Top ten terms from this page: ");
-            FrequencyTable filteredTerms = aggregated.getFilteredTerms();
+            String[] mostcommonterms = aggregated.getFilteredTerms().termArray();
             for(int i=0; i<10; i++) {
-                output.append(filteredTerms.removeFirst().term);
+                output.append(mostcommonterms[i]);
             }
                         
         }catch(Exception IOException) {

@@ -95,17 +95,17 @@ public class FrequencyTable {
   }
   
   //Lucas Entry Iterator
-  public Iterator<Entry> makeIterator(FrequencyTable table) {
-       TreeSet<Entry> tableTree = new TreeSet<Entry>(table.getEntries()); 
+  public Iterator<Entry> makeIterator() {
+       TreeSet<Entry> tableTree = new TreeSet<Entry>(getEntries()); 
        Iterator<Entry> tableTreeEntriesIterator = tableTree.descendingIterator();
        return tableTreeEntriesIterator;
   }
   
   //Array parallel to frequency
-  public String[] termArray(FrequencyTable table) {
-      String[] termArray = new String[table.getSize()]; 
+  public String[] termArray() {
+      String[] termArray = new String[getSize()]; 
       int idx = 0; //index of the array
-      Iterator<Entry> entry = makeIterator(table);
+      Iterator<Entry> entry = makeIterator();
       while(entry.hasNext()){
           termArray[idx] = entry.next().term;
           idx++;
@@ -113,11 +113,11 @@ public class FrequencyTable {
       return termArray;
   }
   
-  //Array parallel to 
-  public int[] freqArray(FrequencyTable table) {
-      int[] freqArray = new int[table.getSize()]; 
+  //Array parallel to
+  public int[] freqArray() {
+      int[] freqArray = new int[getSize()]; 
       int idx = 0; //index of the array
-      Iterator<Entry> entry = makeIterator(table);
+      Iterator<Entry> entry = makeIterator();
       while(entry.hasNext()){
           freqArray[idx] = entry.next().frequency;
           idx++;
