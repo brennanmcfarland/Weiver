@@ -1,10 +1,11 @@
-
+import java.util.Hashtable;
 import java.io.IOException;
 
 //Sophie Salomon
 //Takes text from each webpage, sort by term frequency, then eliminate irrelevant words
 //Choose priority terms 
 //Count positive/negative/neutral phrases 
+
 
 public class AggregatePage {
     
@@ -15,7 +16,7 @@ public class AggregatePage {
     private Object[][] priorityTermFrequency = new Object[10][2];
     private String words = " ";
     private static FrequencyTable filteredTerms = new FrequencyTable(); 
-    private FrequencyTable prioritizedTerms = new FrequencyTable(); 
+    private Hashtable prioritizedTerms = new Hashtable(); 
 
     public AggregatePage(String publisher, String title, String body) {
         this.publisher = publisher;
@@ -97,8 +98,8 @@ public class AggregatePage {
         return frq;
     }
 
-    private void findPriorityTermFrequency() {
-
+    public Hashtable findPrioritizedTermFrequency() {
+        return prioritizedTerms;
     }
 
     /**
