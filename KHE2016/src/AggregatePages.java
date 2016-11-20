@@ -44,42 +44,70 @@ public class AggregatePages {
     
     //iterates through the frequency table and the hashtable and combines them
     public void aggregateTerms(LinkedList<FrequencyTable> page_termFreq, LinkedList<Hashtable> page_termPrio) {
-        FrequencyTable page_FreqReturn = new FrequencyTable();
-        Hashtable page_PrioReturn;
+        FrequencyTable page_FreqTemp = new FrequencyTable();
+        Hashtable page_PrioTemp;
         
-        //Copies the Frequency table in node 0 to the return Frequency table
-        String[] terms = page_termFreq.get(0).termArray(page_termFreq.get(0));
-        int[] freqs = page_termFreq.get(0).freqArray(page_termFreq.get(0));
-        for(int i = 0; i < page_termFreq.get(0).getSize(); i++) {
-            page_FreqReturn.insert(terms[i], freqs[i]);
-        }       
-        //here, the list is empty and only the first Frequency table in the list is inserted to the return Frequency Table
-        /*for(int i = 0; i < page_termFreq.get(0).getSize(); i++) { 
-            page_FreqReturn.insert(page_termFreq.get(0).get(i).term, page_termFreq.get(0).get(i).frequency);
-        }*/
-        
-        for(int i = 1; i < page_termFreq.size(); i++) { //iterates through the list starting at the second element
-            //int rdx = 0; //index for returnFrequency table??
-            int idx = 0;//index for the list Frequency table
-            //boolean stop = false;
-           // while(rdx < page_FreqReturn.getSize()) //iterates through the return tablee??
-                terms = page_termFreq.get(i).termArray(page_termFreq.get(i));
-                freqs = page_termFreq.get(i).freqArray(page_termFreq.get(i));
-            while(idx < terms.length) { //iterates through the specific elements' terms and frequencies
-                    if (page_FreqReturn.getTerm(terms[idx]) != null) { //need to aggregate frequencies
-                        page_FreqReturn.getTerm(terms[idx]).frequency = page_FreqReturn.getTerm(terms[idx]).frequency + freqs[idx];
-                    }
-                    else { //no need to aggregate frequencies because they are not like terms and this is a new element
-                         page_FreqReturn.insert(terms[idx], freqs[idx]);
-                    }
-            }
-                    
-        }
-        //sorts the return Frequency table
-        page_termFinal = page_FreqReturn;
-             
+       //Experimental code starts here
+       //while(!stop) {
+       int max = maxFrequencyTableList(page_termFreq);// keeps track of maximum number of runs to get all items in all Frequency tables in the list'
+       int idx = 0; //index to increment up until max
+       String[] terms = page_termFreq.get(0).termArray(page_termFreq.get(0));
+       int[] freqs = page_termFreq.get(0).freqArray(page_termFreq.get(0));
+       while(idx < max) { //MAY HAVE PROBLEMS WITH RUNNING OUT OF BOUNDS BUT HONESTLY I HAVENT SLEPT IN A DAY GIVE US A BREAK
+       for(int i = 0; i < page_termFreq.size(); i++) { //loop for iterating through the elements in the list
+           if (page_termFreq.get(i).getSize() > idx) {
+               terms = page_termFreq.get(i).termArray(page_termFreq.get(i));
+               freqs = page_termFreq.get(i).freqArray(page_termFreq.get(i));
+               if(page_FreqTemp.getTerm(terms[idx]) != null) {  //case where aggregation is needed
+                   page_FreqTemp.getTerm(terms[idx]).frequency = page_FreqTemp.getTerm(terms[idx]).frequency + freqs[idx];
+               }
+               else { //simply insert
+               page_FreqTemp.insert(terms[idx], freqs[idx]);
+               }
+           }
+       }
+        idx++;   //increases the paralel aray index 
+      }
+       page_termFinal = page_FreqTemp; 
+    }
+    
+    //Finds the size of the maximum Frequency table in the list
+    public int maxFrequencyTableList(LinkedList<FrequencyTable> tableList) {
+        int max = 0;
+        for(int i = 0; i < tableList.size(); i++) {
+            if(tableList.get(0).getSize() > max)
+                max = tableList.get(0).getSize();
             
         }
+        return max;
+    }
+    
+    //Sort and aggregate methods
+    public void aggroSort(String[] terms, int[] freqs) {
+        String[] tempTerms = new String[terms.length];
+        int[] tempFreqs = new int[freqs.length];
+        aggroSort(terms, freqs, tempTerms, tempFreqs, 0, terms.length - 1);
+    }
+    
+    private void aggroSort(String[] terms, int[] freqs, String[] tempTerms, int[] tempFreqs, int left, int right) {
+        if (left < right) {
+        int center = (left + right) / 2;
+        aggroSort(terms, freqs, tempTerms, tempFreqs, left, center);
+        aggroSort(terms, freqs, tempTerms, tempFreqs, center + 1, right);
+        aggroMerge(terms, freqs, tempTerms, tempFreqs, left, center + 1, right );
+        }
+    }
+    
+    private void aggroMerge(String[] terms, int[] freqs, String[] tempTerms, int[] tempFreqs, int leftPos, int rightPos, int rightEnd) {
+        //main aggreagation loop
+        
+        int leftEnd = rightPos - 1;
+        int tempPos = leftPos;
+        int totalElements = right - leftPos + 1;
+        //main sorting loop
+        while(left)
+    }
+    
     //aggregrate most frequent terms across all pages
     public LinkedList aggregateTerms() {
         //for now, it will just take the 5 most common terms from each
