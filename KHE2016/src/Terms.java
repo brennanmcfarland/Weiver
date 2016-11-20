@@ -12,7 +12,7 @@ import java.io.*;
  */
 
 /**
- * stores term frequencies and words/phrases to ignore
+ * stores and loads prioritized terms and terms to ignore
  */
 
 public class Terms {

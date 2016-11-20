@@ -20,7 +20,7 @@ import java.util.Scanner;
  */
 
 
-public class ParseDigitalTrends {
+public class ParseDigitalTrends implements ParseWebPage {
 
     Document d; //jsoup document for parsing
     protected String publisher = "Digital Trends";
