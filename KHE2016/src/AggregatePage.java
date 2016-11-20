@@ -1,5 +1,6 @@
 import java.util.Hashtable;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,10 +21,9 @@ public class AggregatePage {
     private String title;
     private String body;
     private FrequencyTable frq = new FrequencyTable();
-    private Object[][] priorityTermFrequency = new Object[10][2];
     private String words = " ";
     private static FrequencyTable filteredTerms = new FrequencyTable(); 
-    private Hashtable prioritizedTerms = new Hashtable(); 
+    private Hashtable priorityTermFrequency = new Hashtable(); 
 
     public AggregatePage(String publisher, String title, String body) {
         this.publisher = publisher;
@@ -104,8 +104,12 @@ public class AggregatePage {
     }
     
     //get the hash table of prioritized terms
-    public Hashtable findPrioritizedTermFrequency() {
-        return prioritizedTerms;
+    public Hashtable findPrioritizedTermFrequency(ArrayList priorityTerms) {
+        for(int i=0; i<priorityTerms.size(); i++) {
+            priorityTermFrequency.put(priorityTerms.get(i), findTermCount(
+                (String)priorityTerms.get(i), body));
+        }
+        return priorityTermFrequency;
     }
 
     //return the article publisher
@@ -127,7 +131,8 @@ public class AggregatePage {
     public static void main(String[] args) throws IOException {
         AggregatePage p = new AggregatePage("Emilio", "Title", "This is a a a a a he he he he Joe Joe Joe Joe Joe aardvark aardvark aardvark aardvark test to figure out if anything works. This is seriously test.");
         Terms terms = new Terms();
-        terms.parseFileIgnorePhrases("ignorePhrases.json");
+        terms.parseFilePhrases("ignorePhrases.json", true);
+        terms.parseFilePhrases("PriorityPhrases.json", true);
         System.out.println(filter(p.findTermFrequency(),terms));
     }
 

@@ -27,7 +27,8 @@ public class Weiver {
         LinkedList<Hashtable> prioritizedTermFrequencies = new LinkedList();
         Terms terms = new Terms();
         try{
-            terms.parseFileIgnorePhrases("ignorePhrases.json");
+            terms.parseFilePhrases("ignorePhrases.json", true);
+            terms.parseFilePhrases("priorityPhrases.json", false);
         }catch(Exception IOException) {
             System.out.println("IOException parsing terms");
         }
@@ -61,7 +62,7 @@ public class Weiver {
                 termFrequencies.add(AggregatePage.filter(
                         aggregateDigitalTrends.findTermFrequency(), terms));
                 prioritizedTermFrequencies.add(
-                        aggregateDigitalTrends.findPrioritizedTermFrequency());
+                        aggregateDigitalTrends.findPrioritizedTermFrequency(terms.priorityTerms));
                 parsedPages.add(parseDigitalTrends);
                 pageData.add(aggregateDigitalTrends);
             }catch(Exception IOException) {
@@ -77,7 +78,7 @@ public class Weiver {
                 termFrequencies.add(AggregatePage.filter(
                     aggregateCnet.findTermFrequency(), terms));
                 prioritizedTermFrequencies.add(
-                    aggregateCnet.findPrioritizedTermFrequency());
+                    aggregateCnet.findPrioritizedTermFrequency(terms.priorityTerms));
                 parsedPages.add(parseCnet);
                 pageData.add(aggregateCnet);
             }catch(Exception IOException) {

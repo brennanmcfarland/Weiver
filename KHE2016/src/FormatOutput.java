@@ -65,7 +65,7 @@ public class FormatOutput {
             //format the cons
             output.append(parsed.findCons());
             output.append("\n\n");
-            
+                        
         }catch(Exception IOException) {
             System.out.println("Error formatting output");
             return output.append("[ERROR]").toString();
