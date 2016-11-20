@@ -2,6 +2,7 @@ import java.util.LinkedList;
 import java.util.Iterator;
 import java.util.Hashtable;
 import java.util.Enumeration;
+import java.util.Map;
 
 /**
  *
@@ -33,26 +34,20 @@ public class FormatOutput {
     public String formatPages() {
         StringBuilder output = new StringBuilder();
         
-        output.append("_____OUTPUT_____\n");
+        output.append("\n\n\n_____OUTPUT_____\n");
         
         //format data from the pages in aggregate
-        //this first line is just a test to be deleted later
-        output.append(aggregateData.getAggregateTerms().toString());
-        
         //format the top 10 terms in order
         output.append("Top ten terms: ");
         String[] mostcommonterms = aggregateData.getAggregateTerms().termArray();
-        for(int i=0; i<10; i++) {
+        output.append(mostcommonterms[0]);
+        for(int i=1; i<10; i++) {
+            output.append(", ");
             output.append(mostcommonterms[i]);
         }
             
         //format the frequencies of the priority terms
-        Enumeration prioritizedTerms = 
-                aggregateData.getAggregatePrioritizedTerms().elements();
-        while(prioritizedTerms.hasMoreElements()) {
-            prioritizedTerms.nextElement();
-            //output.append(prioritizedTerms.);
-        }
+        // prioritizedTerms = aggregateData.getAggregatePrioritizedTerms().elements();
         
         
         //format data from the individual pages
@@ -88,7 +83,9 @@ public class FormatOutput {
             //format the top 10 terms in order
             output.append("Top ten terms from this page: ");
             String[] mostcommonterms = aggregated.getFilteredTerms().termArray();
-            for(int i=0; i<10; i++) {
+            output.append(mostcommonterms[0]);
+            for(int i=1; i<10; i++) {
+                output.append(", ");
                 output.append(mostcommonterms[i]);
             }
                         

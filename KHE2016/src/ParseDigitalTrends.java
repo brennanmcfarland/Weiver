@@ -57,13 +57,13 @@ public class ParseDigitalTrends implements ParseWebPage {
     //returns the pros on the webpage parsed as a string
     public String findPros() throws IOException {
         Elements pros = d.select("div[class='m-good-bad good']");
-        return (pros.text().substring(6));
+        return ("Pros: " + pros.text().substring(6));
     }
 
     //returns the cons on the webpage parsed as a string
     public String findCons() throws IOException {
         Elements cons = d.select("div[class='m-good-bad bad']");
-        return (cons.text().substring(5));
+        return ("Cons: " + cons.text().substring(5));
     }
     
     /*
